@@ -8,7 +8,8 @@ import java.util.Scanner;
 public class conways
 {
     static int DEAD = 0;
-    static int ALIVE = 1;
+    static int ALIVE = 1; // this is making dead mean 0 and alive be 1 for the whole program, they are numbers because its easier
+    //to make it an array of ints (as ints can only be numbers) than doing string parsing
   public static void main(String[] args)
   {
       Scanner keyboard = new Scanner(System.in); 
@@ -29,7 +30,8 @@ public class conways
         int[][] newGrid = new int[20][20]; //making another 2d array for the new generation grid
           for (int x=0; x<20; x++){ 
           for (int y=0; y<20;y++){ // looking thru each cell of grid
-              int numberOfNeighboursAlive = 0; //defining variable of number of neighbours that are alive(starts as 0)
+              int numberOfNeighboursAlive = 0; //defining variable of number of neighbours that are alive(starts as 0 - 0 is a place holder
+              //cuz i wanted to code the rest later lol
               if (grid[x][y]==ALIVE){ //if the current cell we r looking at is alive
               if(numberOfNeighboursAlive < 2){ //checking if it has less than two neighbours
                   newGrid[x][y]=DEAD; //if it does then its dead
@@ -50,18 +52,23 @@ public class conways
         return newGrid; // this is returning the new now changed grid
     }
      public static void PrintingGrid(int[][] grid){ //printing the grid to be pretty
-            for (int x=1; x<21; x++){ 
+      for (int x=1; x<21; x++){ 
             System.out.print(String.format("%02d ", x)); //this is me getting help from the internet to 
             //find out how to turn an int into a string and make sure its always the same length (thats why i put
             //the 0 and it's getting padded by 2 so thats why i did 2) the string.format is a function that you
             //use to convert and pad and format the int into a string11
           }
-         for (int x=0; x<20; x++){ 
-            int letters = 65+x;
-            System.out.print((char)letters);
-          for (int y=0; y<20;y++) 
-              System.out.print(grid[x][y]); //this is printing the value in every part of the array
-              System.out.println(); 
-        }
+         for (int y=0; y<20; y++){ 
+            int letters = 65+y;
+            System.out.print((char)letters); // printing characters
+          for (int x=0; x<20;x++){  // making sure its 20 wide and 20 high
+              if (grid[x][y]== ALIVE){ //if the cell is alive
+                  System.out.print(" x "); //if it is alive then make it x
+              } else {
+                  System.out.print(" . "); // if it is dead make it .
+              }
+              System.out.println(); //print another line so it would make a new row
+        } //got rid of old code because i wanted to print x and . instead of 0 and 1 for aesthetic purposes
      }
+    }
 }
