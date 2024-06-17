@@ -21,54 +21,76 @@ public class conways
           for (int y=0; y<20;y++)
               grid[x][y]=DEAD; //this is making all the values start as dead
         }
-        System.out.print("Where do you want your first sprite to be?");
+        System.out.println("Where do you want your first cell to be?");
+        System.out.println("Before");
+        PrintingGrid(grid);
+        grid[2][2]=ALIVE;
+        grid[2][3]=ALIVE;
+        grid[3][3]=ALIVE;
+        System.out.println("Updated");
+        PrintingGrid(grid);
+        System.out.println("After");
+        int[][] newGrid = gridDeadOrAlive(grid);
+        PrintingGrid(newGrid);
+        
         cell = keyboard.nextInt();
     }
     public static int[][] gridDeadOrAlive(int[][] grid) //making a method for calculating the next generation ( aka
     //if all cells are alive or dead)
     {
         int[][] newGrid = new int[20][20]; //making another 2d array for the new generation grid
-          for (int x=0; x<20; x++){ 
-          for (int y=0; y<20;y++){ // looking thru each cell of grid
-              int numberOfNeighboursAlive = 0; //defining variable of number of neighbours that are alive(starts as 0 - 0 is a place holder
-              //cuz i wanted to code the rest later lol
-              if (grid[x][y]==ALIVE){ //if the current cell we r looking at is alive
-              if(numberOfNeighboursAlive < 2){ //checking if it has less than two neighbours
-                  newGrid[x][y]=DEAD; //if it does then its dead
-              } else if(numberOfNeighboursAlive <= 3){ //checking if it less than 3 or = to 3 neighbours
-                  newGrid[x][y]=ALIVE; //if it does it is alive
-              } else{
-                  newGrid[x][y]=DEAD; // if it has more than 3 neighbours ( the only other option) it dies
-              } 
-             } else{ // if the cell is dead
+          for (int x=0; x<20; x++){ // looking thru each cell of grid
+          for (int y=0; y<20; y++){ 
+              int numberOfNeighboursAlive = 0; //defining variable of number of neighbours that are alive
+              for (int xNeighbouringCells=-1; xNeighbouringCells<2; xNeighbouringCells++){ 
+                  for (int yNeighbouringCells=-1; yNeighbouringCells<2; yNeighbouringCells++){  // loop through all neighbours and seeing whether alive or dead
+                      if ((x+xNeighbouringCells >= 0 && y+yNeighbouringCells >= 0) && // if it's above x0 or y0 grid 
+                          x+xNeighbouringCells < 19 && y+yNeighbouringCells < 19 && // if less than x20 or y20 
+                          grid[x+xNeighbouringCells][y+yNeighbouringCells] == ALIVE) { // this is checking if alive
+                          numberOfNeighboursAlive++; // add neighbours onto cell if conditions are correct 
+                        }
+                    }
+                }
+              if (grid[x][y]== ALIVE){ //if the current cell we r looking at is alive
+                  System.out.println("Grid alive X " + String.format("%02d ", x) + " Y " + String.format("%02d ", y) + " count " + String.format("%02d ", numberOfNeighboursAlive )); //this is me getting help from the internet to 
+                  if(numberOfNeighboursAlive < 2){ //checking if it has less than two neighbours
+                      newGrid[x][y]=DEAD; //if it does then its dead
+                  } else if(numberOfNeighboursAlive <= 3){ //checking if it less than 3 or = to 3 neighbours
+                      newGrid[x][y]=ALIVE; //if it does it is alive
+                  } else{
+                      newGrid[x][y]=DEAD; // if it has more than 3 neighbours ( the only other option) it dies
+                  } 
+              } else { // if the cell is dead
                  if(numberOfNeighboursAlive == 3){ //if the number of neighbours alive is 3
                      newGrid[x][y]=ALIVE; //make it alive
                  } else{
                      newGrid[x][y]=DEAD; //stay dead
                  }
-             }
+              }
             }
         }
         return newGrid; // this is returning the new now changed grid
     }
      public static void PrintingGrid(int[][] grid){ //printing the grid to be pretty
-      for (int x=1; x<21; x++){ 
-            System.out.print(String.format("%02d ", x)); //this is me getting help from the internet to 
+        System.out.print("   "); // Pad the first line for characters
+         for (int x=0; x<20; x++){ 
+            int letters = 65+x;// ascii character A is 66, so printing charcters
+            System.out.print(" "+(char)letters+" "); // printing characters
+          }
+         System.out.println(); //print another line so it would make a new row
+          for (int y=0; y<20; y++){ 
+            System.out.print(String.format("%02d ", y)); //this is me getting help from the internet to 
             //find out how to turn an int into a string and make sure its always the same length (thats why i put
             //the 0 and it's getting padded by 2 so thats why i did 2) the string.format is a function that you
             //use to convert and pad and format the int into a string11
-          }
-         for (int y=0; y<20; y++){ 
-            int letters = 65+y;
-            System.out.print((char)letters); // printing characters
-          for (int x=0; x<20;x++){  // making sure its 20 wide and 20 high
-              if (grid[x][y]== ALIVE){ //if the cell is alive
-                  System.out.print(" x "); //if it is alive then make it x
-              } else {
-                  System.out.print(" . "); // if it is dead make it .
-              }
+              for (int x=0; x<20;x++){  // making sure its 20 wide and 20 high
+                  if (grid[x][y]== ALIVE){ //if the cell is alive
+                      System.out.print(" x "); //if it is alive then make it x
+                  } else {
+                      System.out.print(" . "); // if it is dead make it .
+                  }
+            } //got rid of old code because i wanted to print x and . instead of 0 and 1 for aesthetic purposes
               System.out.println(); //print another line so it would make a new row
-        } //got rid of old code because i wanted to print x and . instead of 0 and 1 for aesthetic purposes
-     }
+         }
     }
 }
