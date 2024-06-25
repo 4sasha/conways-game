@@ -21,15 +21,15 @@ public class conways
           for (int y=0; y<20;y++)
               grid[x][y]=DEAD; //this is making all the values start as dead
         }
-        System.out.println("Where do you want your first cell to be?");
-        System.out.println("Before");
+        System.out.println("Where do you want your cell to be?");
+        String cell1 = keyboard.nextLine();
+        
+        int cellX = ((int) cell1.toUpperCase().charAt(0))-65;
+        
+        int cellY = (Integer.parseInt(String.valueOf(cell1.charAt(1))))-1;
+        grid[cellX][cellY] = ALIVE;
         PrintingGrid(grid);
-        grid[2][2]=ALIVE;
-        grid[2][3]=ALIVE;
-        grid[3][3]=ALIVE;
-        System.out.println("Updated");
-        PrintingGrid(grid);
-        System.out.println("After");
+        System.out.println(grid[cellX][cellY]);
         int[][] newGrid = gridDeadOrAlive(grid);
         PrintingGrid(newGrid);
         
