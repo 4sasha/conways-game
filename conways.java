@@ -1,7 +1,11 @@
 
 /**
  * 
- * 
+ * Sasha Lambrechtsen Conways Game of Life 
+ * Copyright /Conways comes under the creative commons
+ * Version 8
+ * 26/06/2024
+ * I'm doing it for CSC223 at WHS
  * 
  */
 import java.util.Scanner;
@@ -16,24 +20,36 @@ public class conways
       int[][] grid = new int[20][20];// This is the 2d array for the grid aka the basic layout code
       System.out.print("  ");
       int cell;
+      int cells;
       System.out.println(); //i did this so then the x's and the numbers wouldnt be in the same line
       for (int x=0; x<20; x++){ 
           for (int y=0; y<20;y++)
               grid[x][y]=DEAD; //this is making all the values start as dead
         }
-        System.out.println("Where do you want your cell to be?");
-        String cell1 = keyboard.nextLine();
-        
-        int cellX = ((int) cell1.toUpperCase().charAt(0))-65;
-        
-        int cellY = (Integer.parseInt(String.valueOf(cell1.charAt(1))))-1;
-        grid[cellX][cellY] = ALIVE;
+        while (true) {
+            System.out.println("Where do you want your alive cell to be, or use U to stop ?");
+            String cell1 = keyboard.nextLine(); //this is turning the user input into a string called cell1
+            if (cell1.toUpperCase().charAt(0) == "U".charAt(0)) {
+                break;
+            } else {
+                int cellX = ((int) cell1.toUpperCase().charAt(0))-65; //this is turning the first character in the users input and making sure it's
+                // upper case, then making sure 
+                
+                int cellY = (Character.getNumericValue(cell1.charAt(1)))-1; //
+                grid[cellX][cellY] = ALIVE; //this is turning the input alive so then it will show as alive on the grid
+                
+            }
+            PrintingGrid(grid); 
+
+        }
+        System.out.println("Finished");
         PrintingGrid(grid);
-        System.out.println(grid[cellX][cellY]);
+        //System.out.println(grid[cellX][cellY]);
         int[][] newGrid = gridDeadOrAlive(grid);
         PrintingGrid(newGrid);
         
-        cell = keyboard.nextInt();
+        //cell = keyboard.nextInt();
+        //exit(
     }
     public static int[][] gridDeadOrAlive(int[][] grid) //making a method for calculating the next generation ( aka
     //if all cells are alive or dead)
@@ -79,7 +95,7 @@ public class conways
           }
          System.out.println(); //print another line so it would make a new row
           for (int y=0; y<20; y++){ 
-            System.out.print(String.format("%02d ", y)); //this is me getting help from the internet to 
+            System.out.print(String.format("%02d ", y+1)); //this is me getting help from the internet to 
             //find out how to turn an int into a string and make sure its always the same length (thats why i put
             //the 0 and it's getting padded by 2 so thats why i did 2) the string.format is a function that you
             //use to convert and pad and format the int into a string11
