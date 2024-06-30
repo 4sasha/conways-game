@@ -68,13 +68,25 @@ public class conways
             if (cell1.length() == 0) { // if we have no value aka enter button was pressed we play the game
                 break;
             } else {
-                int cellX = ((int) cell1.toUpperCase().charAt(0))-65; //this is turning the first character in the users input and making sure it's
-                // upper case, then making sure 
-                int cellY = (Character.getNumericValue(cell1.charAt(1)))-1; //
-                if (grid[cellX][cellY] == ALIVE) { // check the cell is alive
-                    grid[cellX][cellY] = DEAD; // and make it dead
-                } else {
-                    grid[cellX][cellY] = ALIVE; // or cell is dead and make it alive
+                if (Character.toString(cell1.toUpperCase().charAt(0)).matches("[A-Z]")){
+                    if (cell1.substring(1).matches("[0-9]+")) { 
+                        int cellX = ((int) cell1.toUpperCase().charAt(0))-65; //this is turning the first character (with charAt0, since the first value is
+                        //always 0 and not 1, then minusing 65 from that due to using ascii keyboard cuz its java. also making sure it's always
+                        //counted as an uppercase
+                        int cellY = Integer.valueOf(cell1.substring(1))-1; //making a substring so the string goes through each number (so if value
+                        //is above 9 it doesn't break randomly and counts all numbers)
+                        if (grid[cellX][cellY] == ALIVE) { // check the cell is alive
+                            grid[cellX][cellY] = DEAD; // and make it dead
+                        } else {
+                        grid[cellX][cellY] = ALIVE; // or cell is dead and make it alive
+                        }
+                    }  
+                    else{
+                        System.out.println("Invalid answer, second value is not a number");
+                    }
+                }
+                 else {
+                    System.out.println("Invalid answer, first character is not a letter");
                 }
             }
             PrintingGrid(grid); 
