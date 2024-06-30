@@ -13,45 +13,38 @@ public class conways
     static int DEAD = 0;
     static int ALIVE = 1; // this is making dead mean 0 and alive be 1 for the whole program, they are numbers because its easier
     //to make it an array of ints (as ints can only be numbers) than doing string parsing
-    static int XSIZE = 5;  // make the size 20 wide
-    static int YSIZE = 5;  // make the size 20 high
+    static int XSIZE = 20;  // make the size 20 wide
+    static int YSIZE = 20;  // make the size 20 high
   public static void main(String[] args)
   {
       Scanner keyboard = new Scanner(System.in); 
       int[][] grid = new int[XSIZE][YSIZE];// This is the 2d array for the grid aka the basic layout code
-      System.out.print("  ");
-      int cell;
+      System.out.print("  "); 
       System.out.println(); //i did this so then the x's and the numbers wouldnt be in the same line
       for (int x=0; x<XSIZE; x++){ 
           for (int y=0; y<YSIZE;y++)
               grid[x][y]=DEAD; //this is making all the values start as dead
         }
-        while (1 == 2) {
-            System.out.println("Where do you want your alive cell to be, or use U to stop ?");
+        while (true) {
+            System.out.println("Where do you want your alive cell to be, or use enter key to stop ?");
             String cell1 = keyboard.nextLine(); //this is turning the user input into a string called cell1
-            if (cell1.toUpperCase().charAt(0) == "U".charAt(0)) {
+            if (cell1.length() == 0) { // if we have no value aka enter button was pressed we play the game
                 break;
             } else {
                 int cellX = ((int) cell1.toUpperCase().charAt(0))-65; //this is turning the first character in the users input and making sure it's
                 // upper case, then making sure 
                 int cellY = (Character.getNumericValue(cell1.charAt(1)))-1; //
                 grid[cellX][cellY] = ALIVE; //this is turning the input alive so then it will show as alive on the grid
-
             }
             PrintingGrid(grid); 
-
         }
         System.out.println("Finished");
-        
-        grid[2][1] = ALIVE;
-        grid[2][2] = ALIVE;
-        grid[2][3] = ALIVE;
         PrintingGrid(grid);
        // System.out.println(grid[cellX][cellY]);
         int[][] newGrid = gridDeadOrAlive(grid);
         PrintingGrid(newGrid);
         
-        cell = keyboard.nextInt();
+        //cell = keyboard.nextInt();
     }
     public static int[][] gridDeadOrAlive(int[][] grid) //making a method for calculating the next generation ( aka
     //if all cells are alive or dead)
@@ -71,7 +64,7 @@ public class conways
                 }
               if (grid[x][y]== ALIVE){ //if the current cell we r looking at is alive
                   numberOfNeighboursAlive--; //subtract the active cell to not count it twice
-                  System.out.println("Grid alive X " + String.format("%02d ", x) + " Y " + String.format("%02d ", y) + " count " + String.format("%02d ", numberOfNeighboursAlive )); //this is me getting help from the internet to 
+                  // System.out.println("Grid alive X " + String.format("%02d ", x) + " Y " + String.format("%02d ", y) + " count " + String.format("%02d ", numberOfNeighboursAlive )); debugging (no longer required)
                   if(numberOfNeighboursAlive < 2){ //checking if it has less than two neighbours
                       newGrid[x][y]=DEAD; //if it does then its dead
                   } else if(numberOfNeighboursAlive <= 3){ //checking if it less than 3 or = to 3 neighbours
@@ -98,7 +91,7 @@ public class conways
           }
          System.out.println(); //print another line so it would make a new row
           for (int y=0; y<YSIZE; y++){ 
-            System.out.print(String.format("%02d ", y)); //this is me getting help from the internet to 
+            System.out.print(String.format("%02d ", y+1)); //this is me getting help from the internet to 
             //find out how to turn an int into a string and make sure its always the same length (thats why i put
             //the 0 and it's getting padded by 2 so thats why i did 2) the string.format is a function that you
             //use to convert and pad and format the int into a string11
