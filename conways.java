@@ -37,8 +37,9 @@ public class conways
                 System.out.println("invalid that is not a number buddy");
             }
         }
+        PrintingGrid(grid); 
         while (true) {
-            System.out.println("Where do you want your alive cell to be, or use enter key to stop ?");
+            System.out.println("where do you want your cell to be (alive or dead), or use enter key to stop ?");
             String cell1 = keyboard.nextLine(); //this is turning the user input into a string called cell1
             if (cell1.length() == 0) { // if we have no value aka enter button was pressed we play the game
                 break;
@@ -46,12 +47,16 @@ public class conways
                 int cellX = ((int) cell1.toUpperCase().charAt(0))-65; //this is turning the first character in the users input and making sure it's
                 // upper case, then making sure 
                 int cellY = (Character.getNumericValue(cell1.charAt(1)))-1; //
-                grid[cellX][cellY] = ALIVE; //this is turning the input alive so then it will show as alive on the grid
+                if (grid[cellX][cellY] == ALIVE) { // check the cell is alive
+                    grid[cellX][cellY] = DEAD; // and make it dead
+                } else {
+                    grid[cellX][cellY] = ALIVE; // or cell is dead and make it alive
+                }
             }
             PrintingGrid(grid); 
         }
-        System.out.println("Finished");
-        PrintingGrid(grid);
+        //System.out.println("Finished"); - debugging
+
         for (int generation = 0; generation < generations; generation++) {
                 grid = gridDeadOrAlive(grid);
                 PrintingGrid(grid);
@@ -116,5 +121,5 @@ public class conways
             } //got rid of old code because i wanted to print x and . instead of 0 and 1 for aesthetic purposes
               System.out.println(); //print another line so it would make a new row
          }
-    } 
+    }
 }
