@@ -19,11 +19,23 @@ public class conways
   {
       Scanner keyboard = new Scanner(System.in); 
       int[][] grid = new int[XSIZE][YSIZE];// This is the 2d array for the grid aka the basic layout code
+      //System.out.print("\033[H\033[2J"); 
+      //System.out.flush();
       System.out.print("  "); 
       System.out.println(); //i did this so then the x's and the numbers wouldnt be in the same line
       for (int x=0; x<XSIZE; x++){ 
           for (int y=0; y<YSIZE;y++)
               grid[x][y]=DEAD; //this is making all the values start as dead
+        }
+        System.out.println("How many generations do you want to play or enter for 1 generation?");
+        String generations_answer = keyboard.nextLine(); 
+        int generations = 1; //default generation is 1
+        if (generations_answer.length() > 0) { //if you don't enter anything then it's just 1 generation
+            if (generations_answer.matches("[0-9]+")) { // check to make sure it's a number
+                generations = Integer.valueOf(generations_answer); //setting the variable generations to whatever the user input was
+            } else {
+                System.out.println("invalid that is not a number buddy");
+            }
         }
         while (true) {
             System.out.println("Where do you want your alive cell to be, or use enter key to stop ?");
@@ -40,11 +52,11 @@ public class conways
         }
         System.out.println("Finished");
         PrintingGrid(grid);
-       // System.out.println(grid[cellX][cellY]);
-        int[][] newGrid = gridDeadOrAlive(grid);
-        PrintingGrid(newGrid);
-        
-        //cell = keyboard.nextInt();
+        for (int generation = 0; generation < generations; generation++) {
+                grid = gridDeadOrAlive(grid);
+                PrintingGrid(grid);
+                System.out.println("generation: " +String.format("%d ", generation + 1));
+        }
     }
     public static int[][] gridDeadOrAlive(int[][] grid) //making a method for calculating the next generation ( aka
     //if all cells are alive or dead)
