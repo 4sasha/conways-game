@@ -8,6 +8,11 @@
  * 
  */
 import java.util.Scanner;
+import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 public class conways
 {
     static int DEAD = 0;
@@ -27,6 +32,25 @@ public class conways
           for (int y=0; y<YSIZE;y++)
               grid[x][y]=DEAD; //this is making all the values start as dead
         }
+        
+        System.out.println("L to load saved game or else press enter");
+        String load_answer = keyboard.nextLine(); // get user answer
+        if (load_answer.length() > 0 && load_answer.toUpperCase().charAt(0) == "L".charAt(0)) { // if we load the file
+            try {
+                // i found code online showing how to save an array to a file https://stackoverflow.com/questions/11924843/saving-an-array-of-objects-in-java-for-later-use-in-another-program
+                ObjectInputStream file_in = new ObjectInputStream(new FileInputStream("conway.backup")); // load file into input stream
+                grid = (int[][]) file_in.readObject(); // read input stream into grid
+                file_in.close(); //close file once done
+            } catch(IOException ex){ //if the file doesnt exist this causes an exception 
+                System.out.println(ex.toString()); //print exception message out
+                System.out.println("Could not find file");
+            } catch (ClassNotFoundException ex) { //taken from code online example
+                System.out.println(ex.toString()); 
+                System.out.println("Class not found error");
+            }
+            PrintingGrid(grid); //then go back to printing that grid from backed up game
+        }
+        
         System.out.println("How many generations do you want to play or enter for 1 generation?");
         String generations_answer = keyboard.nextLine(); 
         int generations = 1; //default generation is 1
@@ -61,6 +85,22 @@ public class conways
                 grid = gridDeadOrAlive(grid);
                 PrintingGrid(grid);
                 System.out.println("generation: " +String.format("%d ", generation + 1));
+        }
+             
+        // Save current game
+        System.out.println("S to save the current game?");
+        String save_answer = keyboard.nextLine(); // get answer
+        if (save_answer.length() > 0 && save_answer.toUpperCase().charAt(0) == "S".charAt(0)) { // to save the file
+            try {
+                ObjectOutputStream file_out = new ObjectOutputStream(new FileOutputStream("conway.backup")); //save file to a new file called conway backup
+                file_out.writeObject(grid); //writing grid to file
+                file_out.flush(); // flushing the file buffer to write the grid to the disk
+                file_out.close(); //then close file
+            }
+            catch(IOException ex){ //if file fails to save/an error happens with file
+                System.out.println (ex.toString()); //printing the exception
+                System.out.println("Could not find file"); 
+            }
         }
     }
     public static int[][] gridDeadOrAlive(int[][] grid) //making a method for calculating the next generation ( aka
