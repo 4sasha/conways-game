@@ -1,7 +1,11 @@
 
 /**
  * 
- * 
+ * Sasha Lambrechtsen Conways Game of Life 
+ * Copyright /Conways comes under the creative commons
+ * Version 8
+ * 26/06/2024
+ * I'm doing it for CSC223 at WHS
  * 
  */
 import java.util.Scanner;
@@ -10,8 +14,8 @@ public class conways
     static int DEAD = 0;
     static int ALIVE = 1; // this is making dead mean 0 and alive be 1 for the whole program, they are numbers because its easier
     //to make it an array of ints (as ints can only be numbers) than doing string parsing
-    static int XSIZE = 20;  // make the size 20 wide
-    static int YSIZE = 20;  // make the size 20 high
+    static int XSIZE = 5;  // make the size 20 wide
+    static int YSIZE = 5;  // make the size 20 high
   public static void main(String[] args)
   {
       Scanner keyboard = new Scanner(System.in); 
@@ -23,15 +27,18 @@ public class conways
           for (int y=0; y<YSIZE;y++)
               grid[x][y]=DEAD; //this is making all the values start as dead
         }
-        System.out.println("Where do you want your cell to be?");
-        String cell1 = keyboard.nextLine();
+        //System.out.println("Where do you want your cell to be?");
+        //String cell1 = keyboard.nextLine();
         
-        int cellX = ((int) cell1.toUpperCase().charAt(0))-65;
+        //int cellX = ((int) cell1.toUpperCase().charAt(0))-65;
         
-        int cellY = (Integer.parseInt(String.valueOf(cell1.charAt(1))))-1;
-        grid[cellX][cellY] = ALIVE;
+        //int cellY = (Integer.parseInt(String.valueOf(cell1.charAt(1))))-1;
+        //grid[cellX][cellY] = ALIVE;
+        grid[2][1] = ALIVE;
+        grid[2][2] = ALIVE;
+        grid[2][3] = ALIVE;
         PrintingGrid(grid);
-        System.out.println(grid[cellX][cellY]);
+       // System.out.println(grid[cellX][cellY]);
         int[][] newGrid = gridDeadOrAlive(grid);
         PrintingGrid(newGrid);
         
@@ -54,6 +61,7 @@ public class conways
                     }
                 }
               if (grid[x][y]== ALIVE){ //if the current cell we r looking at is alive
+                  numberOfNeighboursAlive--; //subtract the active cell to not count it twice
                   System.out.println("Grid alive X " + String.format("%02d ", x) + " Y " + String.format("%02d ", y) + " count " + String.format("%02d ", numberOfNeighboursAlive )); //this is me getting help from the internet to 
                   if(numberOfNeighboursAlive < 2){ //checking if it has less than two neighbours
                       newGrid[x][y]=DEAD; //if it does then its dead
