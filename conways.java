@@ -116,5 +116,5 @@ public class conways
             } //got rid of old code because i wanted to print x and . instead of 0 and 1 for aesthetic purposes
               System.out.println(); //print another line so it would make a new row
          }
-    }
+    } 
 }
