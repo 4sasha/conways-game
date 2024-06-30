@@ -1,4 +1,3 @@
-
 /**
  * 
  * Sasha Lambrechtsen Conways Game of Life 
@@ -27,13 +26,23 @@ public class conways
           for (int y=0; y<YSIZE;y++)
               grid[x][y]=DEAD; //this is making all the values start as dead
         }
-        //System.out.println("Where do you want your cell to be?");
-        //String cell1 = keyboard.nextLine();
+        while (1 == 2) {
+            System.out.println("Where do you want your alive cell to be, or use U to stop ?");
+            String cell1 = keyboard.nextLine(); //this is turning the user input into a string called cell1
+            if (cell1.toUpperCase().charAt(0) == "U".charAt(0)) {
+                break;
+            } else {
+                int cellX = ((int) cell1.toUpperCase().charAt(0))-65; //this is turning the first character in the users input and making sure it's
+                // upper case, then making sure 
+                int cellY = (Character.getNumericValue(cell1.charAt(1)))-1; //
+                grid[cellX][cellY] = ALIVE; //this is turning the input alive so then it will show as alive on the grid
+
+            }
+            PrintingGrid(grid); 
+
+        }
+        System.out.println("Finished");
         
-        //int cellX = ((int) cell1.toUpperCase().charAt(0))-65;
-        
-        //int cellY = (Integer.parseInt(String.valueOf(cell1.charAt(1))))-1;
-        //grid[cellX][cellY] = ALIVE;
         grid[2][1] = ALIVE;
         grid[2][2] = ALIVE;
         grid[2][3] = ALIVE;
