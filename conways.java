@@ -4,7 +4,7 @@
  * Copyright /Conways comes under the creative commons
  * Version 8
  * 26/06/2024
- * I'm doing it for CSC223 at WHS
+ * I'm doing this project for CSC223 at WHS
  * 
  */
 import java.util.Scanner;
@@ -50,7 +50,8 @@ public class conways
             }
             PrintingGrid(grid); //then go back to printing that grid from backed up game
         }
-        
+        System.out.println(\u000c); //clear screen
+
         System.out.println("How many generations do you want to play or enter for 1 generation?");
         String generations_answer = keyboard.nextLine(); 
         int generations = 1; //default generation is 1
@@ -119,7 +120,7 @@ public class conways
     //if all cells are alive or dead)
     {
         int[][] newGrid = new int[XSIZE][YSIZE]; //making another 2d array for the new generation grid
-          for (int x=0; x<XSIZE; x++){ // looking thru each cell of grid
+          for (int x=0; x<XSIZE; x++){ // looking through each cell of grid
           for (int y=0; y<YSIZE; y++){ 
               int numberOfNeighboursAlive = 0; //defining variable of number of neighbours that are alive
               for (int xNeighbouringCells=-1; xNeighbouringCells<2; xNeighbouringCells++){ 
@@ -153,6 +154,7 @@ public class conways
         return newGrid; // this is returning the new now changed grid
     }
      public static void PrintingGrid(int[][] grid){ //printing the grid to be pretty
+        System.out.println(\u000c); //clear screen
         System.out.print("   "); // Pad the first line for characters
          for (int x=0; x<XSIZE; x++){ 
             int letters = 65+x;// ascii character A is 66, so printing charcters
@@ -172,6 +174,14 @@ public class conways
                   }
             } //got rid of old code because i wanted to print x and . instead of 0 and 1 for aesthetic purposes
               System.out.println(); //print another line so it would make a new row
+         }
+         try 
+         {
+             Thread.sleep(300); //sleeps for 300 ms
+         }
+         catch (InterruptedException ie) 
+         {
+             ie.printStackTrace(); //if you wanted to stop the program mid computing then it will show up with an error
          }
     }
 }
