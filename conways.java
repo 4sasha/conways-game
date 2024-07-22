@@ -50,7 +50,7 @@ public class conways
             }
             PrintingGrid(grid); //then go back to printing that grid from backed up game
         }
-        System.out.println(\u000c); //clear screen
+        System.out.println('\u000c'); //clear screen
 
         System.out.println("How many generations do you want to play or enter for 1 generation?");
         String generations_answer = keyboard.nextLine(); 
@@ -91,6 +91,7 @@ public class conways
                 }
             }
             PrintingGrid(grid); 
+           
         }
         //System.out.println("Finished"); - debugging
 
@@ -154,7 +155,7 @@ public class conways
         return newGrid; // this is returning the new now changed grid
     }
      public static void PrintingGrid(int[][] grid){ //printing the grid to be pretty
-        System.out.println(\u000c); //clear screen
+         System.out.println('\u000c');
         System.out.print("   "); // Pad the first line for characters
          for (int x=0; x<XSIZE; x++){ 
             int letters = 65+x;// ascii character A is 66, so printing charcters
