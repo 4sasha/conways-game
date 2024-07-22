@@ -32,7 +32,12 @@ public class conways
         }
         System.out.println('\u000c'); //clear screen
         System.out.println("Hello and welcome to my (Sasha's) rendition of Conways game of life!");
-        System.out.println("The rules are basic yet may take a few tries to ");
+        System.out.println("First, choose how many generations you want to go through a life cycle");
+        System.out.println("Then, choose where you want your alive cells to be");
+        System.out.println("Any live cell with fewer than two live neighbours dies, as if by underpopulation. ");
+        System.out.println("Any live cell with two or three live neighbours lives on to the next generation. ");
+        System.out.println("Any live cell with more than three live neighbours dies, as if by overpopulation. ");
+        System.out.println("Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction. ");
         while (true) {
             System.out.println("L to load saved game or else press enter");
             String load_answer = keyboard.nextLine(); // get user answer
@@ -128,6 +133,7 @@ public class conways
                 System.out.println("Could not find file"); 
             }
         }
+        System.out.println("thanks for playing! :)");
     }
     public static int[][] gridDeadOrAlive(int[][] grid) //making a method for calculating the next generation ( aka
     //if all cells are alive or dead)
