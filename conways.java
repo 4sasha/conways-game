@@ -2,7 +2,7 @@
  * 
  * Sasha Lambrechtsen Conways Game of Life 
  * Copyright /Conways comes under the creative commons
- * Version 8
+ * Version 19
  * 26/06/2024
  * I'm doing this project for CSC223 at WHS
  * 
@@ -24,42 +24,54 @@ public class conways
   {
       Scanner keyboard = new Scanner(System.in); 
       int[][] grid = new int[XSIZE][YSIZE];// This is the 2d array for the grid aka the basic layout code
-      //System.out.print("\033[H\033[2J"); 
-      //System.out.flush();
       System.out.print("  "); 
       System.out.println(); //i did this so then the x's and the numbers wouldnt be in the same line
       for (int x=0; x<XSIZE; x++){ 
           for (int y=0; y<YSIZE;y++)
               grid[x][y]=DEAD; //this is making all the values start as dead
         }
-        
-        System.out.println("L to load saved game or else press enter");
-        String load_answer = keyboard.nextLine(); // get user answer
-        if (load_answer.length() > 0 && load_answer.toUpperCase().charAt(0) == "L".charAt(0)) { // if we load the file
-            try {
-                // i found code online showing how to save an array to a file https://stackoverflow.com/questions/11924843/saving-an-array-of-objects-in-java-for-later-use-in-another-program
-                ObjectInputStream file_in = new ObjectInputStream(new FileInputStream("conway.backup")); // load file into input stream
-                grid = (int[][]) file_in.readObject(); // read input stream into grid
-                file_in.close(); //close file once done
-            } catch(IOException ex){ //if the file doesnt exist this causes an exception 
-                System.out.println(ex.toString()); //print exception message out
-                System.out.println("Could not find file");
-            } catch (ClassNotFoundException ex) { //taken from code online example
-                System.out.println(ex.toString()); 
-                System.out.println("Class not found error");
+        System.out.println('\u000c'); //clear screen
+        System.out.println("Hello and welcome to my (Sasha's) rendition of Conways game of life!");
+        System.out.println("The rules are basic yet may take a few tries to ");
+        while (true) {
+            System.out.println("L to load saved game or else press enter");
+            String load_answer = keyboard.nextLine(); // get user answer
+            if (load_answer.length() > 0 && load_answer.toUpperCase().charAt(0) == "L".charAt(0)) { // if we load the file
+                try {
+                    // i found code online showing how to save an array to a file https://stackoverflow.com/questions/11924843/saving-an-array-of-objects-in-java-for-later-use-in-another-program
+                    ObjectInputStream file_in = new ObjectInputStream(new FileInputStream("conway.backupppp")); // load file into input stream
+                    grid = (int[][]) file_in.readObject(); // read input stream into grid
+                    file_in.close(); //close file once done
+                    PrintingGrid(grid); //then go back to printing that grid from backed up game
+                    break;
+                } catch(IOException ex){ //if the file doesnt exist this causes an exception 
+                    System.out.println(ex.toString()); //print exception message out
+                    System.out.println("Could not find file");
+                } catch (ClassNotFoundException ex) { //taken from code online example
+                    System.out.println(ex.toString()); 
+                    System.out.println("Class not found error");
+                }
+            } if (load_answer.length() == 0) {
+                break;
+            }else {
+                System.out.println("invalid that is not either load or enter...");
             }
-            PrintingGrid(grid); //then go back to printing that grid from backed up game
         }
         System.out.println('\u000c'); //clear screen
 
-        System.out.println("How many generations do you want to play or enter for 1 generation?");
-        String generations_answer = keyboard.nextLine(); 
         int generations = 1; //default generation is 1
-        if (generations_answer.length() > 0) { //if you don't enter anything then it's just 1 generation
-            if (generations_answer.matches("[0-9]+")) { // check to make sure it's a number
-                generations = Integer.valueOf(generations_answer); //setting the variable generations to whatever the user input was
-            } else {
-                System.out.println("invalid that is not a number buddy");
+        while (true) {
+            System.out.println("How many generations do you want to play or enter for 1 generation?");
+            String generations_answer = keyboard.nextLine(); 
+            if (generations_answer.length() > 0) {//if you don't enter anything then it's just 1 generation
+                if (generations_answer.matches("[0-9]+")) {// check to make sure it's a number
+                    generations = Integer.valueOf(generations_answer);//setting the variable generations to whatever the user input was
+                    break;
+                } else{
+                    System.out.println("invalid that is not a number buddy");
+                }
+            } else{
+                break;
             }
         }
         PrintingGrid(grid); 
@@ -178,7 +190,8 @@ public class conways
          }
          try 
          {
-             Thread.sleep(300); //sleeps for 300 ms
+             Thread.sleep(300); //doesnt do anything for 300 ms so if there are multiple generations, you can see 
+             //how the code changes
          }
          catch (InterruptedException ie) 
          {
